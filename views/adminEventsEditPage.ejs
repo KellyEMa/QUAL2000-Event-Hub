@@ -1,0 +1,80 @@
+<%- include("partials/head", { pageTitle, shellClass: "site-shell-admin" }) %>
+<%- include("partials/adminNav") %>
+
+<section class="utility-section">
+  <div class="shell-section">
+    <div class="admin-header">
+      <span class="eyebrow">Update event</span>
+      <h1 class="admin-title">Edit the details for <%= event.title %>.</h1>
+      <p class="admin-subtitle">
+        Update the public listing and save the changes. The event page will reflect
+        the newest information immediately after the update.
+      </p>
+    </div>
+
+    <div class="admin-form-shell">
+      <%- include("partials/message", { message: "", errorMessage }) %>
+
+      <form action="/admin/events/<%= event._id %>?_method=PATCH" method="POST">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="label" for="title">Event Title</label>
+            <input class="input" id="title" name="title" type="text" required value="<%= event.title %>" />
+          </div>
+
+          <div class="form-group">
+            <label class="label" for="date">Event Date</label>
+            <input
+              class="input"
+              id="date"
+              name="date"
+              type="date"
+              required
+              value="<%= formatDateForInput(event.date) %>"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="label" for="location">Location</label>
+            <input class="input" id="location" name="location" type="text" required value="<%= event.location %>" />
+          </div>
+
+          <div class="form-group">
+            <label class="label" for="category">Category</label>
+            <input class="input" id="category" name="category" type="text" required value="<%= event.category %>" />
+          </div>
+
+          <div class="form-group form-group-full">
+            <label class="label" for="image">Image URL</label>
+            <input class="input" id="image" name="image" type="url" required value="<%= event.image %>" />
+          </div>
+
+          <div class="form-group form-group-full">
+            <label class="label" for="description">Description</label>
+            <textarea class="textarea" id="description" name="description" required><%= event.description %></textarea>
+          </div>
+
+          <div class="form-group form-group-full">
+            <label class="label" for="availableSlots">Available Slots</label>
+            <input
+              class="input"
+              id="availableSlots"
+              name="availableSlots"
+              type="number"
+              min="0"
+              required
+              value="<%= event.availableSlots %>"
+            />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="button-primary" type="submit">Save Changes</button>
+          <a class="button-secondary" href="/admin/events">Back To Dashboard</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

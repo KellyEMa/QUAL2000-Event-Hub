@@ -1,0 +1,30 @@
+{
+  "name": "project-2",
+  "version": "1.0.0",
+  "description": "Event Hub is a simple CRUD web application built for a web programming course project. It keeps the same teaching-friendly structure as the current MoviePlex app, but changes the context to events and registrations.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zewais/COMP1021-Event-Hub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/zewais/COMP1021-Event-Hub/issues"
+  },
+  "homepage": "https://github.com/zewais/COMP1021-Event-Hub#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^9.3.2"
+  }
+}

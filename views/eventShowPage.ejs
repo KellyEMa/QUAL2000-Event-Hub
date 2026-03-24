@@ -1,0 +1,61 @@
+<%- include("partials/head", { pageTitle, shellClass: "site-shell-public" }) %>
+<%- include("partials/publicNav") %>
+
+<section class="page-header">
+  <div class="shell-section">
+    <div class="page-header-grid">
+      <span class="eyebrow">Single event details</span>
+      <h1 class="page-title"><%= event.title %></h1>
+      <p class="page-copy">
+        Review the event details, check the remaining capacity, and continue to the
+        registration form when you are ready to book.
+      </p>
+    </div>
+    <%- include("partials/message", { message, errorMessage: "" }) %>
+  </div>
+</section>
+
+<section class="editorial-section">
+  <div class="shell-section">
+    <div class="detail-grid">
+      <div
+        class="event-hero-media"
+        style="background-image: url('<%= event.image || defaultEventImage %>');"
+      ></div>
+
+      <aside class="detail-panel">
+        <div class="detail-meta">
+          <span class="meta-pill"><%= event.category %></span>
+          <span class="meta-pill"><%= formatDate(event.date) %></span>
+        </div>
+
+        <h2 class="detail-title">Plan your visit before the tickets are gone.</h2>
+        <p class="detail-copy"><%= event.description %></p>
+
+        <div class="detail-list">
+          <div class="detail-list-item">
+            <span class="detail-label">Location</span>
+            <span class="detail-value"><%= event.location %></span>
+          </div>
+          <div class="detail-list-item">
+            <span class="detail-label">Date</span>
+            <span class="detail-value"><%= formatDate(event.date) %></span>
+          </div>
+          <div class="detail-list-item">
+            <span class="detail-label">Available Slots</span>
+            <span class="detail-value"><%= event.availableSlots %></span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a class="button-primary" href="/events/registrations/<%= event._id %>">
+            Register For This Event
+          </a>
+          <a class="button-secondary" href="/events">Back To Events</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

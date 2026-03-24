@@ -1,0 +1,18 @@
+<%- include("partials/head", { pageTitle, shellClass: "site-shell-admin" }) %>
+
+<section class="not-found-shell">
+  <div class="not-found-panel">
+    <span class="eyebrow">404 page</span>
+    <h1 class="not-found-title">That page is not part of Event Hub.</h1>
+    <p class="not-found-copy">
+      The route you tried to open does not exist. Return to the public home page or
+      jump into the event list to continue using the app.
+    </p>
+    <div class="form-actions">
+      <a class="button-primary" href="/">Return Home</a>
+      <a class="button-secondary" href="/events">Browse Events</a>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

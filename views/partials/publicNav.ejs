@@ -1,0 +1,30 @@
+<nav class="public-nav">
+  <div class="nav-inner">
+    <a class="brand-lockup" href="/">
+      <span class="brand-kicker">Live Guide</span>
+      <span class="brand-name">Event Hub</span>
+    </a>
+
+    <div class="nav-links">
+      <a class="nav-link <%= currentPath === '/' ? 'is-active' : '' %>" href="/">
+        Home
+      </a>
+      <a
+        class="nav-link <%= currentPath.startsWith('/events') && !currentPath.startsWith('/events/registrations') ? 'is-active' : '' %>"
+        href="/events"
+      >
+        Events
+      </a>
+      <a
+        class="nav-link <%= currentPath.startsWith('/events/registrations') ? 'is-active' : '' %>"
+        href="/events/registrations"
+      >
+        My Registrations
+      </a>
+    </div>
+
+    <div class="nav-actions">
+      <a class="button-link" href="/admin/login">Admin Dashboard</a>
+    </div>
+  </div>
+</nav>

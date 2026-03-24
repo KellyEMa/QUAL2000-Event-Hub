@@ -1,0 +1,37 @@
+<%- include("partials/head", { pageTitle, shellClass: "site-shell-admin" }) %>
+
+<section class="auth-shell">
+  <div class="auth-panel">
+    <span class="eyebrow">Protected dashboard</span>
+    <h1 class="admin-title">Sign in to manage Event Hub.</h1>
+    <p class="admin-subtitle">
+      Use the admin username and password stored in your `.env` file to open the
+      event management dashboard.
+    </p>
+
+    <div class="admin-form-shell">
+      <%- include("partials/message", { message: "", errorMessage }) %>
+
+      <form action="/admin/login" method="POST">
+        <div class="form-grid">
+          <div class="form-group form-group-full">
+            <label class="label" for="username">Admin Username</label>
+            <input class="input" id="username" name="username" type="text" required />
+          </div>
+
+          <div class="form-group form-group-full">
+            <label class="label" for="password">Admin Password</label>
+            <input class="input" id="password" name="password" type="password" required />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="button-primary" type="submit">Sign In</button>
+          <a class="button-secondary" href="/events">Return To Public Site</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

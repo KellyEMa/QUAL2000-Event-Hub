@@ -1,0 +1,30 @@
+<nav class="admin-nav">
+  <div class="nav-inner">
+    <a class="brand-lockup" href="/admin/events">
+      <span class="brand-kicker">Control Room</span>
+      <span class="brand-name">Event Hub Admin</span>
+    </a>
+
+    <div class="nav-links">
+      <a
+        class="nav-link <%= currentPath === '/admin/events' ? 'is-active' : '' %>"
+        href="/admin/events"
+      >
+        All Events
+      </a>
+      <a
+        class="nav-link <%= currentPath === '/admin/events/new' || currentPath.endsWith('/edit') ? 'is-active' : '' %>"
+        href="/admin/events/new"
+      >
+        Add Event
+      </a>
+      <a class="nav-link" href="/events">View Public Site</a>
+    </div>
+
+    <% if (isAdminLoggedIn) { %>
+      <form action="/admin/logout" method="POST">
+        <button class="button-secondary" type="submit">Log Out</button>
+      </form>
+    <% } %>
+  </div>
+</nav>

@@ -1,0 +1,65 @@
+<%- include("partials/head", { pageTitle, shellClass: "site-shell-public" }) %>
+<%- include("partials/publicNav") %>
+
+<section class="page-header">
+  <div class="shell-section">
+    <div class="page-header-grid">
+      <span class="eyebrow">Public events directory</span>
+      <h1 class="page-title">Explore the full Event Hub lineup.</h1>
+      <p class="page-copy">
+        Browse every upcoming event, compare locations and dates, then open a single
+        page for the full details and registration link.
+      </p>
+    </div>
+    <%- include("partials/message", { message, errorMessage: "" }) %>
+  </div>
+</section>
+
+<section class="editorial-section">
+  <div class="shell-section">
+    <% if (events.length === 0) { %>
+      <div class="empty-state">
+        <h2 class="empty-title">There are no public events yet.</h2>
+        <p class="empty-copy">
+          Add your first listing from the admin dashboard to start building the
+          Event Hub calendar.
+        </p>
+        <div class="inline-actions">
+          <a class="button-primary" href="/admin/login">Open Admin Login</a>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="event-list">
+        <% events.forEach((event) => { %>
+          <article class="event-list-item">
+            <a class="event-card-link" href="/events/<%= event._id %>">
+              <div
+                class="event-card-media"
+                style="background-image: url('<%= event.image || defaultEventImage %>');"
+              ></div>
+
+              <div class="event-card-content">
+                <div class="eyebrow-row">
+                  <span class="meta-pill"><%= event.category %></span>
+                  <span class="meta-pill"><%= formatDate(event.date) %></span>
+                </div>
+
+                <div class="event-grid">
+                  <h2 class="event-title"><%= event.title %></h2>
+                  <p class="event-summary"><%= event.description %></p>
+                </div>
+
+                <div class="meta-row">
+                  <span><strong>Location:</strong> <%= event.location %></span>
+                  <span><strong>Available slots:</strong> <%= event.availableSlots %></span>
+                </div>
+              </div>
+            </a>
+          </article>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

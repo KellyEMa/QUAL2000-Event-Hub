@@ -1,0 +1,72 @@
+<%- include("partials/head", { pageTitle, shellClass: "site-shell-public" }) %>
+<%- include("partials/publicNav") %>
+
+<section class="page-header">
+  <div class="shell-section">
+    <div class="page-header-grid">
+      <span class="eyebrow">Single user registrations</span>
+      <h1 class="page-title">Track the events you have already booked.</h1>
+      <p class="page-copy">
+        This page keeps the public registration history simple: review your current
+        bookings and delete one if you no longer need the spot.
+      </p>
+    </div>
+    <%- include("partials/message", { message, errorMessage: "" }) %>
+  </div>
+</section>
+
+<section class="utility-section">
+  <div class="shell-section">
+    <% if (registrations.length === 0) { %>
+      <div class="empty-state">
+        <h2 class="empty-title">No registrations yet.</h2>
+        <p class="empty-copy">
+          Visit the events page to open a listing and create your first registration.
+        </p>
+        <div class="inline-actions">
+          <a class="button-primary" href="/events">Browse Events</a>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="registrations-table-wrap table-scroll">
+        <table class="registrations-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Attendee</th>
+              <th>Email</th>
+              <th>Tickets</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% registrations.forEach((registration) => { %>
+              <tr>
+                <td><%= registration.eventTitle %></td>
+                <td><%= registration.attendeeName %></td>
+                <td><%= registration.attendeeEmail %></td>
+                <td><%= registration.ticketCount %></td>
+                <td><span class="status-pill"><%= registration.status %></span></td>
+                <td>
+                  <div class="table-actions">
+                    <form
+                      action="/events/registrations/<%= registration._id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button class="button-danger" type="submit">
+                        Delete Registration
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

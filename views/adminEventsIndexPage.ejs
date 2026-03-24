@@ -1,0 +1,72 @@
+<%- include("partials/head", { pageTitle, shellClass: "site-shell-admin" }) %>
+<%- include("partials/adminNav") %>
+
+<section class="utility-section">
+  <div class="shell-section">
+    <div class="admin-toolbar">
+      <div class="admin-header">
+        <span class="eyebrow">Admin dashboard</span>
+        <h1 class="admin-title">Manage every event in one workspace.</h1>
+        <p class="admin-subtitle">
+          Create, update, or delete event listings without leaving the same
+          beginner-friendly Express app.
+        </p>
+      </div>
+
+      <a class="button-primary" href="/admin/events/new">Add New Event</a>
+    </div>
+
+    <%- include("partials/message", { message, errorMessage: "" }) %>
+
+    <% if (events.length === 0) { %>
+      <div class="empty-state">
+        <h2 class="empty-title">No events have been added.</h2>
+        <p class="empty-copy">
+          Use the add event page to create the first public listing for Event Hub.
+        </p>
+      </div>
+    <% } else { %>
+      <div class="admin-table-wrap table-scroll">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Category</th>
+              <th>Slots</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% events.forEach((event) => { %>
+              <tr>
+                <td><%= event.title %></td>
+                <td><%= formatDate(event.date) %></td>
+                <td><%= event.location %></td>
+                <td><%= event.category %></td>
+                <td><%= event.availableSlots %></td>
+                <td>
+                  <div class="table-actions">
+                    <a class="button-secondary button-small" href="/admin/events/<%= event._id %>/edit">
+                      Edit
+                    </a>
+
+                    <form
+                      action="/admin/events/<%= event._id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button class="button-danger button-small" type="submit">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include("partials/footer") %>
