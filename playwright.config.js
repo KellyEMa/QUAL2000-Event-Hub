@@ -29,6 +29,8 @@ export default defineConfig({
     command: 'npm run start',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
+    stdout: 'pipe',
+    stderr: 'pipe'
    },
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
