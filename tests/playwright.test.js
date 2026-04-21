@@ -144,7 +144,7 @@ test('calender button appears', async({page}) =>{
 
 //User Registration Tests 
 
-test('create account button', async({page}) =>{
+test('create account page button', async({page}) =>{
     await page.getByRole('link', {name: "create an account"});
     await page.goto('localhost:3000/create-account');
 });
@@ -184,7 +184,7 @@ test('get password', async({page}) =>{
 
 test('create account button', async({page}) =>{
     await page.getByRole('button', {name: "create account"}).click();
-    await
+    
 });
 
 test('already have an account button', async({page}) =>{
