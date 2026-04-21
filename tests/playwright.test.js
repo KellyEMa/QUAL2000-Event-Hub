@@ -18,10 +18,11 @@ const {
 //Home Page Tests
 
 test('hompage loads', async ({page}) => {
-    await page.goto('localhost:3000');
+    await page.goto('http://localhost:3000');
 })
 
 test('home reloads', async({page}) => {
+    await page.goto('http://localhost:3000');
     await page.getByRole('link', {name: 'Home'}).click();
     
 });
@@ -41,13 +42,14 @@ test('live guide event hub', async ({page}) => {
 //Admin Dash Tests
 
 test('return to public site', async({page}) => {
-    await page.goto('localhost:3000');
+    await page.goto('http://localhost:3000');
 
 });
 
 test('login to admin dashboard', async({page}) => {
+    await page.goto('http://localhost:3000/login');
     await page.getByRole('link', {name: 'login'}).click();
-    await page.goto('localhost:3000/login');
+    
 });
 
 //test('admin page navbar sticks to top', async({page}) =>{
@@ -55,13 +57,15 @@ test('login to admin dashboard', async({page}) => {
 //});
 
 test('admin nav bar add events loads add events page', async({page}) =>{
+    await page.goto('http://localhost:3000/add-events');
     await page.getByRole('link', {name:'add events'}).click();
-    await page.goto('localhost:3000/add-events');
+    
 });
 
 test('add new event button loads add event form', async({page}) =>{
+    await page.goto('http://localhost:3000/add-events');
     await page.getByRole("link", {name: 'add new event'}).click();
-    await page.goto('localhost:3000/add-events');
+    
 });
 
 //test('created events in db display in all events page', async({page}) =>{
@@ -69,16 +73,17 @@ test('add new event button loads add event form', async({page}) =>{
 //});
 
 test('view public site', async({page}) =>{
-    await page.goto('localhost:3000');
+    await page.goto('http://localhost:3000');
 });
 
 test('back to admin from public site', async({page}) =>{
-    await page.goto('localhost:3000/admin');
+    await page.goto('http://localhost:3000/admin');
 });
 
 test('all events edit button', async({page}) =>{
+    await page.goto('http://localhost:3000/edit-events');
     await page.getByRole('link', {name: 'all events edit'}).click();
-    await page.goto('localhost:3000/edit-events');
+    
 });
 
 test('save changes button', async({page}) =>{
