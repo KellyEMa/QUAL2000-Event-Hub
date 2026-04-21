@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
-        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        DB_URI: ${{ secrets.MONGODB_URI }}
         PORT: ${{ secrets.PORT }}
         ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
         ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
