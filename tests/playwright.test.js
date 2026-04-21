@@ -28,6 +28,7 @@ test('home reloads', async({page}) => {
 });
 
 test('live guide event hub', async ({page}) => {
+    await page.goto('http://localhost:3000');
     await page.getByRole('link', {name: 'live guide event hub'}).click();
 });
 
@@ -47,8 +48,8 @@ test('return to public site', async({page}) => {
 });
 
 test('login to admin dashboard', async({page}) => {
-    await page.goto('http://localhost:3000/login');
-    await page.getByRole('link', {name: 'login'}).click();
+    await page.goto('http://localhost:3000/admin/login');
+    await page.getByRole('link', {name: 'admin dashboard'}).click();
     
 });
 
@@ -57,13 +58,13 @@ test('login to admin dashboard', async({page}) => {
 //});
 
 test('admin nav bar add events loads add events page', async({page}) =>{
-    await page.goto('http://localhost:3000/add-events');
+    await page.goto('http://localhost:3000/admin/events/new');
     await page.getByRole('link', {name:'add events'}).click();
     
 });
 
 test('add new event button loads add event form', async({page}) =>{
-    await page.goto('http://localhost:3000/add-events');
+    await page.goto('http://localhost:3000/admin/events/new');
     await page.getByRole("link", {name: 'add new event'}).click();
     
 });
@@ -73,24 +74,26 @@ test('add new event button loads add event form', async({page}) =>{
 //});
 
 test('view public site', async({page}) =>{
-    await page.goto('http://localhost:3000');
+    await page.goto('http://localhost:3000/events');
 });
 
 test('back to admin from public site', async({page}) =>{
-    await page.goto('http://localhost:3000/admin');
+    await page.goto('http://localhost:3000/admin/events');
 });
 
 test('all events edit button', async({page}) =>{
-    await page.goto('http://localhost:3000/edit-events');
-    await page.getByRole('link', {name: 'all events edit'}).click();
+    await page.goto('http://localhost:3000/admin/events/${event.id}/edit');
+    await page.getByRole('link', {name: 'edit'}).click();
     
 });
 
 test('save changes button', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events');
     await page.getByRole('button',{name: 'save'});
 });
 
 test('event delete button', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events');
     await page.getByRole('button', {name: 'delete'});
 });
 
@@ -105,11 +108,13 @@ test('password hidden', async({page}) =>{
 //Add New Event Tests
 
 test('cannot create event without name', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events/new');
     await expect(page.getByLabel('name')).not.toBeEmpty();
 
 });
 
 test('cannot create event without date', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events/new');
     await expect(page.getByLabel('date')).not.toBeEmpty();
 
 });
@@ -120,30 +125,36 @@ test('cannot create event without date', async({page}) =>{
 //});
 
 test('cannot create event without category', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events/new');
     await expect(page.getByLabel('category')).not.toBeEmpty();
 
 });
 
 test('cannot create event without image url', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events/new');
     await expect(page.getByLabel('image')).not.toBeEmpty();
 
 });
 
 test('cannot create event without description', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events/new');
     await expect(page.getByLabel('description')).not.toBeEmpty();
 
 });
 
 test('cannot create event without available slots', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events/new');
     await expect(page.getByLabel('available slots')).not.toBeEmpty();
 
 });
 
 test('event creation', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events');
     await page.getByRole('button', {name: 'create event'}).click();
 });
 
 test('calender button appears', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/events?message=Event%20created%20successfully.');
     await expect(page.getByLabel('calender')).toBeVisible;
 });
 
