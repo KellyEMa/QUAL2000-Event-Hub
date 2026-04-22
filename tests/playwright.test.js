@@ -17,7 +17,7 @@ const {
 
 const adminUser = {
     username: 'admin',
-    password: 'HelpAdmin123'
+    password: 'adminPass'
 };
 
 const testUser = {
