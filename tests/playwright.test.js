@@ -36,6 +36,8 @@ test('hompage loads', async ({page}) => {
     await expect(page).toHaveURL('http://localhost:3000/');
 });
 
+//toHaveURL found in https://playwright.dev/docs/test-assertions
+
 test('home reloads', async({page}) => {
     await page.goto('http://localhost:3000');
     await page.reload();
@@ -61,7 +63,15 @@ test('live guide event hub', async ({page}) => {
 
 test('access admin dash login', async({page}) =>{
     await page.goto('http://localhost:3000');
-    await expect(page.getByText('Manage every event in one workspace.')).toBeVisible();
+    await page.getByRole('link', {name: 'Admin Dashboard'}).click();
+
+    await page.goto('http://localhost:3000/admin/login');
+    await page.getByLabel('Admin Username').fill(adminUser.username);
+    await page.getByLabel('Admin Password').fill(adminUser.password);
+    await page.click('button[type="submit"]');
+
+    await expect(page).toHaveURL('http://localhost:3000/admin/events');
+
 })
 
 test('return to public site', async({page}) => {
@@ -69,10 +79,10 @@ test('return to public site', async({page}) => {
     await page.getByLabel('Admin Username').fill(adminUser.username);
     await page.getByLabel('Admin Password').fill(adminUser.password);
     await page.click('button[type="submit"]');
-    
-    await page.goto('http://localhost:3000/admin');
+
+    await page.goto('http://localhost:3000/admin/events');
     await page.getByRole('link',{name: 'View Public Site'} ).click();
-    await expect(page.getByText('Explore the full Event Hub lineup')).toBeVisible();
+    await expect(page).toHaveURL('http://localhost:3000/events');
 
 });
 
@@ -90,6 +100,11 @@ test('login to admin dashboard', async({page}) => {
 //});
 
 test('admin nav bar add events loads add events page', async({page}) =>{
+    await page.goto('http://localhost:3000/admin/login');
+    await page.getByLabel('Admin Username').fill(adminUser.username);
+    await page.getByLabel('Admin Password').fill(adminUser.password);
+    await page.click('button[type="submit"]');
+
     await page.goto('http://localhost:3000/admin/events');
     await page.getByRole('link', {name:'Add New Event'}).click();
     await expect(page).toHaveURL('http://localhost:3000/admin/events/new')
@@ -121,17 +136,19 @@ test('all events edit button', async({page}) =>{
     await page.click('button[type="submit"]');
 
     await page.goto('http://localhost:3000/admin/events');
-    await expect(page.getByText('Edit')).toBeVisible();
+    await expect(page.getByRole('link',{name: 'Edit'}).first()).toBeVisible();
     
 });
+// .first https://playwright.dev/docs/api/class-locatorassertions#:~:text=To%20check%20that%20at%20least,)%20Added%20in:%20v1.18
 
 test('save changes button', async({page}) =>{
     await page.goto('http://localhost:3000/admin/login');
-    await page.getByLabel('#username').fill(adminUser.username);
-    await page.getByLabel('#password').fill(adminUser.password);
+    await page.getByLabel('Admin Username').fill(adminUser.username);
+    await page.getByLabel('Admin Password').fill(adminUser.password);
     await page.click('button[type="submit"]');
 
-    await page.goto(`http://localhost:3000/admin/events/${testID}/edit`);
+    await page.goto(`http://localhost:3000/admin/events`);
+    await page.getByRole('link',{name: 'Edit'}).first().click();
     await page.getByLabel('Available Slots').fill('10');
     await page.getByRole('button', {name: 'Save Changes'}).click();
     await expect(page).toHaveURL(`http://localhost:3000/admin/events`);
@@ -143,7 +160,8 @@ test('event delete button', async({page}) =>{
     await page.getByLabel('Admin Password').fill(adminUser.password);
     await page.click('button[type="submit"]');
 
-    await expect(page.getByText('Delete')).toBeVisible();
+    await page.getByRole('button',{name: 'Delete'}).first().click();
+    await expect(page).toHaveURL('http://localhost:3000/admin/events?message=Event%20deleted%20successfully.');
 });
 
 //test('admin login error', async({page}) =>{
